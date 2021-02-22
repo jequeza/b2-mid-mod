@@ -36,4 +36,19 @@ end
       end
     end
   end
+
+  describe "I see a form to add a ride to mechanic workload" do
+    it "it can add a ride by filling out a form with an id of existing ride" do
+
+      visit "/mechanics/#{@salomon.id}"
+      roller_coaster = Ride.create!(name: "Roller Coaster", thrill_rating: 10, open: true)
+      within "#mechanic-info" do
+        fill_in "ride_id", with: roller_coaster.id
+        click_on 'Submit'
+
+        expect(current_path).to eq("/mechanics/#{@salomon.id}")
+        expect(page).to have_content(roller_coaster.name)
+      end
+    end
+  end
 end
