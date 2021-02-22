@@ -5,7 +5,7 @@ RSpec.describe "Mechanic Index Page" do
   Mechanic.destroy_all
 
    @john = Mechanic.create!(name: "John", years_experience: 21)
-   @tom = Mechanic.create!(name: "Tom", years_experience: 5)
+   @tom = Mechanic.create!(name: "Tom", years_experience: 6)
    @salomon = Mechanic.create!(name: "Salomon", years_experience: 18)
 end
   describe "As a User" do
@@ -26,6 +26,13 @@ end
           expect(page).to have_content(@salomon.years_experience)
           expect(page).to have_content(@tom.years_experience)
           expect(page).to have_content(@john.years_experience)
+        end
+      end
+      it "I see the average years of experience across all mechanics" do
+        visit "/mechanics"
+
+        within "#average-years-of-experience" do
+          expect(page).to have_content(15)
         end
       end
     end
