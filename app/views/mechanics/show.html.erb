@@ -1,8 +1,14 @@
 <section id="mechanic-info">
-  <h1> <%= @mechanic.name %> </h1>
-  <h3> Experience: <%= @mechanic.years_experience %> </h3>
-  <h3>Rides: </h3>
+  <h1>Mechanic: <%= @mechanic.name %> </h1>
+  <h3> Years of Experience: <%= @mechanic.years_experience %> </h3>
+  <h3>Current rides they're working on: </h3>
   <% @mechanic.available_rides.each do |ride| %>
     <p> <%= ride.name %> </p>
+  <% end %>
+  <h3>Add a ride to workload:</h3>
+  <%= form_with url: "/mechanics/#{@mechanic.id}/rides", local: true, method: :get do |form| %>
+  <%= form.label :ride_id %>
+  <%= form.text_field :ride_id %>
+  <%= form.submit 'Submit' %>
   <% end %>
 </section>
